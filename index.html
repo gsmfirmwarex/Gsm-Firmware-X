@@ -1,4 +1,243 @@
 ---
-layout: home
-author_profile: true
+layout: null
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSM Firmware Hub - Tested Flash Files</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-color: #191919;
+      --card-bg: #202020;
+      --card-hover: #262626;
+      --text-main: #ffffff;
+      --text-muted: #999999;
+      --accent: #2ea44f;
+      --border-color: #2e2e2e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 20px 10px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 220px 1fr 280px;
+      gap: 24px;
+    }
+
+    /* Left Sidebar: Tags */
+    .sidebar-tags {
+      background: transparent;
+    }
+    .tag-title {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tag-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tag-btn {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      transition: 0.2s;
+    }
+    .tag-btn:hover {
+      background: var(--card-hover);
+      color: #fff;
+    }
+
+    /* Middle: Post Feed */
+    .feed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+    .feed-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .post-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: transform 0.2s, background 0.2s;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .post-card:hover {
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+    .post-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .post-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .post-meta {
+      font-size: 12px;
+      color: #777;
+      display: flex;
+      gap: 15px;
+    }
+
+    /* Right Sidebar: Profile */
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #2a2a2a;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: #666;
+      border: 2px solid var(--border-color);
+    }
+    .profile-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .profile-role {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .profile-bio {
+      font-size: 12px;
+      color: #aaa;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .profile-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .btn-link {
+      background: #282828;
+      color: #ddd;
+      padding: 8px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--border-color);
+    }
+    .btn-link:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+      .sidebar-tags { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- বাঁপাশের ট্যাগ লিস্ট -->
+    <div class="sidebar-tags">
+      <div class="tag-title"><i class="fas fa-tags"></i> Top Brands</div>
+      <div class="tag-list">
+        <a href="#" class="tag-btn">Samsung ROM</a>
+        <a href="#" class="tag-btn">Oppo Firmware</a>
+        <a href="#" class="tag-btn">Vivo Stock ROM</a>
+        <a href="#" class="tag-btn">Xiaomi Flash File</a>
+        <a href="#" class="tag-btn">Realme ROM</a>
+        <a href="#" class="tag-btn">MediaTek (MTK)</a>
+        <a href="#" class="tag-btn">Qualcomm QFIL</a>
+      </div>
+    </div>
+
+    <!-- মাঝের পোস্ট ফিড (পাইথনের তৈরি পোস্টগুলো এখানে স্বয়ংক্রিয়ভাবে শো করবে) -->
+    <div class="feed-section">
+      <div class="feed-header">
+        <span class="feed-title">Latest Firmwares</span>
+      </div>
+
+      {% for post in site.posts %}
+      <a href="{{ post.url | relative_url }}" class="post-card">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <p class="post-desc">{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p>
+        <div class="post-meta">
+          <span><i class="far fa-calendar-alt"></i> {{ post.date | date: "%b %d, %Y" }}</span>
+          <span><i class="fas fa-shield-alt"></i> Tested & Clean</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- ডানপাশের প্রোফাইল কার্ড -->
+    <div class="sidebar-profile">
+      <div class="profile-card">
+        <div class="profile-avatar">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <div class="profile-name">GSM Firmware Hub</div>
+        <div class="profile-role">Tested ROM Specialist</div>
+        <div class="profile-bio">Verified Android flash files, unbrick stock firmware, and repair packages.</div>
+        
+        <div class="profile-links">
+          <a href="https://firmwareworld.com" target="_blank" rel="nofollow" class="btn-link">
+            <i class="fas fa-external-link-alt"></i> Source Website
+          </a>
+          <a href="https://github.com/gsmfirmwarex" target="_blank" class="btn-link">
+            <i class="fab fa-github"></i> GitHub Repo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
