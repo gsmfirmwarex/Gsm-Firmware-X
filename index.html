@@ -10,13 +10,13 @@ layout: null
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg-color: #191919;
-      --card-bg: #202020;
+      --bg-color: #161616;
+      --card-bg: #1f1f1f;
       --card-hover: #262626;
       --text-main: #ffffff;
-      --text-muted: #999999;
+      --text-muted: #9e9e9e;
       --accent: #2ea44f;
-      --border-color: #2e2e2e;
+      --border-color: #2b2b2b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,28 +24,34 @@ layout: null
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      padding: 20px 10px;
+      padding: 30px 15px;
     }
 
+    /* ৩-কলাম ফ্লেক্স কন্টেইনার */
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 220px 1fr 280px;
-      gap: 24px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
     }
 
     /* Left Sidebar: Tags */
     .sidebar-tags {
-      background: transparent;
+      flex: 0 0 200px;
     }
     .tag-title {
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--text-muted);
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .tag-list {
       display: flex;
@@ -53,10 +59,10 @@ layout: null
       gap: 6px;
     }
     .tag-btn {
-      color: #ccc;
-      text-decoration: none;
+      width: 100%;
+      color: #bbb;
       font-size: 13px;
-      padding: 8px 12px;
+      padding: 9px 12px;
       border-radius: 6px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -70,10 +76,14 @@ layout: null
       border-color: var(--accent);
     }
 
-    /* Search Bar Styling */
+    /* Middle: Post Feed & Search */
+    .feed-section {
+      flex: 1;
+      min-width: 0;
+    }
     .search-wrapper {
       position: relative;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     .search-wrapper i {
       position: absolute;
@@ -96,11 +106,10 @@ layout: null
     }
     .search-input:focus {
       border-color: var(--accent);
-      background: #242424;
+      background: #222;
       box-shadow: 0 0 8px rgba(46, 164, 79, 0.25);
     }
 
-    /* Middle: Post Feed */
     .feed-header {
       display: flex;
       justify-content: space-between;
@@ -110,16 +119,16 @@ layout: null
       padding-bottom: 8px;
     }
     .feed-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
     }
     .post-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 20px;
-      margin-bottom: 16px;
-      transition: transform 0.2s, background 0.2s;
+      margin-bottom: 14px;
+      transition: transform 0.15s, background 0.15s;
       text-decoration: none;
       display: block;
       color: inherit;
@@ -127,10 +136,11 @@ layout: null
     .post-card:hover {
       background: var(--card-hover);
       transform: translateY(-2px);
+      border-color: #383838;
     }
     .post-title {
-      font-size: 17px;
-      font-weight: bold;
+      font-size: 16px;
+      font-weight: 700;
       color: #fff;
       margin-bottom: 8px;
       line-height: 1.4;
@@ -148,50 +158,83 @@ layout: null
       gap: 15px;
     }
 
-    /* No Result Text */
+    /* পেজিনেশন স্টাইল */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .page-link, .page-current {
+      padding: 8px 14px;
+      font-size: 13px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: #ccc;
+      transition: 0.2s;
+    }
+    .page-link:hover {
+      background: var(--card-hover);
+      color: #fff;
+      border-color: #444;
+    }
+    .page-current {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      font-weight: bold;
+    }
+
     #no-results {
       display: none;
       text-align: center;
       padding: 40px 10px;
       color: var(--text-muted);
-      font-size: 15px;
+      font-size: 14px;
     }
 
     /* Right Sidebar: Profile */
+    .sidebar-profile {
+      flex: 0 0 260px;
+    }
     .profile-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
+      border-radius: 10px;
+      padding: 22px;
       text-align: center;
     }
     .profile-avatar {
-      width: 90px;
-      height: 90px;
+      width: 75px;
+      height: 75px;
       border-radius: 50%;
-      background: #2a2a2a;
-      margin: 0 auto 16px;
+      background: #262626;
+      margin: 0 auto 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
-      color: #777;
-      border: 2px solid var(--border-color);
+      font-size: 32px;
+      color: #888;
+      border: 1px solid var(--border-color);
     }
     .profile-name {
-      font-size: 18px;
-      font-weight: bold;
+      font-size: 16px;
+      font-weight: 700;
       margin-bottom: 4px;
     }
     .profile-role {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .profile-bio {
       font-size: 12px;
-      color: #aaa;
-      margin-bottom: 20px;
+      color: #999;
+      margin-bottom: 18px;
       line-height: 1.4;
     }
     .profile-links {
@@ -200,36 +243,30 @@ layout: null
       gap: 8px;
     }
     .btn-link {
-      background: #282828;
-      color: #ddd;
+      background: #252525;
+      color: #ccc;
       padding: 8px 12px;
       border-radius: 6px;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       border: 1px solid var(--border-color);
     }
     .btn-link:hover {
-      background: #333;
+      background: #2d2d2d;
       color: #fff;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .container { grid-template-columns: 1fr; }
-      .sidebar-tags { display: none; }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- বাঁপাশের ট্যাগ বাটন (ক্লিক করলে লাইভ ফিল্টার হবে) -->
+    <!-- ১. বাঁপাশের ট্যাগ বাটন সেকশন -->
     <div class="sidebar-tags">
-      <div class="tag-title"><i class="fas fa-tags"></i> Filter by Brand</div>
+      <div class="tag-title"><i class="fas fa-tags"></i> Brands</div>
       <div class="tag-list">
         <button class="tag-btn active" onclick="filterByKeyword('')">Show All Files</button>
         <button class="tag-btn" onclick="filterByKeyword('oppo')">OPPO</button>
@@ -242,22 +279,26 @@ layout: null
       </div>
     </div>
 
-    <!-- মাঝের পোস্ট ফিড এবং ডিজিটাল সার্চ বার -->
+    <!-- ২. মাঝের পোস্ট ফিড, লাইভ সার্চ বার ও পেজিনেশন -->
     <div class="feed-section">
-      <!-- ডিজিটাল সার্চ বার -->
       <div class="search-wrapper">
         <i class="fas fa-search"></i>
-        <input type="text" id="live-search" class="search-input" placeholder="Search by model, CPH, brand, or firmware name..." onkeyup="performSearch()">
+        <input type="text" id="live-search" class="search-input" placeholder="Type model, brand, or CPH code (e.g. CPH2721)..." onkeyup="performSearch()">
       </div>
 
       <div class="feed-header">
         <span class="feed-title">Latest Firmwares</span>
+        {% if paginator.total_pages > 1 %}
+        <span id="post-counter" style="font-size: 12px; color: var(--text-muted);">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+        {% else %}
         <span id="post-counter" style="font-size: 12px; color: var(--text-muted);">Showing {{ site.posts | size }} items</span>
+        {% endif %}
       </div>
 
-      <!-- পোস্ট তালিকা -->
+      <!-- পোস্ট তালিকা (পেজিনেশন অনুযায়ী নির্দিষ্ট পোস্টগুলো রেন্ডার হবে) -->
       <div id="posts-container">
-        {% for post in site.posts %}
+        {% assign display_posts = paginator.posts | default: site.posts %}
+        {% for post in display_posts %}
         <a href="{{ post.url | relative_url }}" class="post-card" data-search-text="{{ post.title | downcase }} {{ post.description | downcase }} {{ post.url | downcase }}">
           <h2 class="post-title">{{ post.title }}</h2>
           <p class="post-desc">{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p>
@@ -271,12 +312,35 @@ layout: null
 
       <!-- কোনো রেজাল্ট না পেলে নোটিশ -->
       <div id="no-results">
-        <i class="fas fa-search" style="font-size: 28px; margin-bottom: 10px; color: #555;"></i>
-        <p>No matching firmware found. Try another keyword or CPH code.</p>
+        <i class="fas fa-search" style="font-size: 26px; margin-bottom: 8px; color: #555;"></i>
+        <p>No matching firmware found for your search.</p>
       </div>
+
+      <!-- পেজ নম্বর ১, ২, ৩ ... বাটন সেকশন -->
+      {% if paginator.total_pages > 1 %}
+      <div class="pagination" id="pagination-box">
+        {% if paginator.previous_page %}
+          <a href="{{ paginator.previous_page_path | relative_url }}" class="page-link">&laquo; Prev</a>
+        {% endif %}
+
+        {% for page in (1..paginator.total_pages) %}
+          {% if page == paginator.page %}
+            <span class="page-current">{{ page }}</span>
+          {% elsif page == 1 %}
+            <a href="{{ '/' | relative_url }}" class="page-link">1</a>
+          {% else %}
+            <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="page-link">{{ page }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if paginator.next_page %}
+          <a href="{{ paginator.next_page_path | relative_url }}" class="page-link">Next &raquo;</a>
+        {% endif %}
+      </div>
+      {% endif %}
     </div>
 
-    <!-- ডানপাশের প্রোফাইল কার্ড -->
+    <!-- ৩. ডানপাশের প্রোফাইল বক্স -->
     <div class="sidebar-profile">
       <div class="profile-card">
         <div class="profile-avatar">
@@ -298,10 +362,9 @@ layout: null
     </div>
   </div>
 
-  <!-- উন্নত ডিজিটাল ফাজি ও টোকেন-বেসড লাইভ সার্চ স্ক্রিপ্ট -->
+  <!-- লাইভ সার্চ ও পেজিনেশন ভিজিবিলিটি স্ক্রিপ্ট -->
   <script>
     function normalizeText(text) {
-      // স্পেস, ড্যাশ, আন্ডারস্কোর এবং বিশেষ চিহ্ন বাদ দিয়ে ক্লিন টেক্সট তৈরি
       return (text || '').toLowerCase().replace(/[-_./\\,\s+]/g, '');
     }
 
@@ -311,6 +374,7 @@ layout: null
       const cleanQuery = normalizeText(rawQuery);
 
       const cards = document.querySelectorAll('.post-card');
+      const paginationBox = document.getElementById('pagination-box');
       let visibleCount = 0;
 
       cards.forEach(card => {
@@ -322,12 +386,9 @@ layout: null
         if (rawQuery === "") {
           isMatch = true;
         } else {
-          // ১. সরাসরি মিল বা চিহ্ন ছাড়া ক্লিন মিল (যেমন: cph2721 বা cph 2721)
           if (rawText.includes(rawQuery) || cleanText.includes(cleanQuery)) {
             isMatch = true;
-          } 
-          // ২. আংশিক শব্দভিত্তিক মিল (টোকেন ম্যাচিং - যেমন: oppo f29 বা 2721 701)
-          else if (searchTokens.length > 0) {
+          } else if (searchTokens.length > 0) {
             const allTokensMatched = searchTokens.every(token => {
               const cleanToken = normalizeText(token);
               return rawText.includes(token) || (cleanToken.length > 0 && cleanText.includes(cleanToken));
@@ -346,15 +407,20 @@ layout: null
         }
       });
 
-      // কাউন্টার ও নো-রেজাল্ট হ্যান্ডলিং
-      document.getElementById('post-counter').innerText = `Showing ${visibleCount} items`;
+      // সার্চ চলাকালীন পেজিনেশন বাটন হাইড থাকবে, খালি থাকলে ফেরত আসবে
+      if (paginationBox) {
+        paginationBox.style.display = (rawQuery === "") ? 'flex' : 'none';
+      }
+
+      if (rawQuery !== "") {
+        document.getElementById('post-counter').innerText = `Found ${visibleCount} items`;
+      }
       document.getElementById('no-results').style.display = (visibleCount === 0) ? 'block' : 'none';
     }
 
     function filterByKeyword(keyword) {
       document.getElementById('live-search').value = keyword;
       
-      // বাটনের অ্যাক্টিভ ক্লাস চেঞ্জ
       document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
       if (window.event && window.event.target) {
         window.event.target.classList.add('active');
