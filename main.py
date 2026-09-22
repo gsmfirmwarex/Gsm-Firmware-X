@@ -49,14 +49,12 @@ BRANDS = [
 ]
 
 def analyze_firmware_data(title):
-    """টাইটেল থেকে ব্র্যান্ড, মডেল ও চিপসেট/টুলস অনুমান করার ইঞ্জিন"""
     detected_brand = "Android"
     for brand in BRANDS:
         if re.search(r'\b' + brand + r'\b', title, re.IGNORECASE):
             detected_brand = brand
             break
 
-    # ফ্ল্যাশ টুল ও চিপসেট নির্ধারণ
     title_lower = title.lower()
     if "scatter" in title_lower or "mt" in title_lower or "mediatek" in title_lower:
         chipset = "MediaTek (MTK)"
@@ -78,11 +76,9 @@ def analyze_firmware_data(title):
     return detected_brand, clean_name, chipset, tool
 
 def generate_seo_article(raw_title, raw_desc, file_link):
-    """পাইথন নিজে থেকেই ৬০০-৮০০ শব্দের পূর্ণাঙ্গ এসইও আর্টিকেল তৈরি করে"""
     brand, clean_name, chipset, flash_tool = analyze_firmware_data(raw_title)
     date_str = datetime.now().strftime("%Y-%m-%d")
 
-    # এসইও মেটা ট্যাগ ও হ্যাশট্যাগ
     tags = [
         f"{brand.lower()} firmware",
         f"{brand.lower()} flash file",
@@ -94,7 +90,6 @@ def generate_seo_article(raw_title, raw_desc, file_link):
     ]
     hashtags = f"#{brand}Firmware #{brand}FlashFile #StockROM #GSMRepair #FlashingGuide #UnbrickPhone"
 
-    # ভিন্ন ভিন্ন হিউম্যান ওপেনিং স্টাইল
     openings = [
         f"Restoring your {clean_name} back to factory fresh operating condition requires genuine and verified stock software. Whether you are dealing with a severe bootloop, resolving continuous app crashes, or recovering from a corrupted OS update, this official tested firmware package provides the ultimate repair solution.",
         f"Encountering system stability problems, frozen startup screens, or firmware partition errors on your {clean_name}? Flashing the original factory ROM remains the most reliable technical method to revive your device safely without damaging system health.",
@@ -102,7 +97,6 @@ def generate_seo_article(raw_title, raw_desc, file_link):
     ]
     intro = random.choice(openings)
 
-    # ৬০০ - ৮০০ শব্দের পূর্ণাঙ্গ প্রফেশনাল টেকনিক্যাল পোস্ট (Google Anti-Spam Link সহ)
     content = f"""---
 title: "{clean_name} Official Tested Stock ROM Firmware Flash File"
 description: "Download verified {clean_name} official stock firmware. Complete technical specifications, USB flashing setup, and step-by-step repair guide."
@@ -170,7 +164,7 @@ To download the verified, virus-free stock ROM package, proceed directly to the 
     return content
 
 # ==============================================================================
-# ৪. গিটহাবে পুশ ও স্লাগ তৈরি
+# ৪. গিটহাবে পুশ ও স্লাগ তৈরি (বিস্তারিত এরর ট্র্যাকিং সহ)
 # ==============================================================================
 def push_to_github(file_name, content):
     url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{POSTS_FOLDER}/{file_name}"
@@ -187,8 +181,16 @@ def push_to_github(file_name, content):
         "branch": BRANCH
     }
 
-    res = requests.put(url, headers=headers, json=data)
-    return res.status_code in [200, 201]
+    try:
+        res = requests.put(url, headers=headers, json=data, timeout=20)
+        if res.status_code in [200, 201]:
+            return True
+        else:
+            print(f"❌ GitHub API Error: Status {res.status_code} -> {res.text}")
+            return False
+    except Exception as e:
+        print(f"❌ Request Exception during push: {e}")
+        return False
 
 def slugify(text):
     text = re.sub(r'[^a-zA-Z0-9\s-]', '', text).strip().lower()
@@ -213,8 +215,6 @@ def rss_worker():
                 raw_desc = getattr(entry, "description", raw_title)
 
                 print(f"New firmware found: {raw_title}")
-                
-                # পাইথনের নিজস্ব এসইও কনটেন্ট ইঞ্জিন
                 article_markdown = generate_seo_article(raw_title, raw_desc, link)
 
                 date_str = datetime.now().strftime("%Y-%m-%d")
@@ -223,17 +223,15 @@ def rss_worker():
 
                 if push_to_github(filename, article_markdown):
                     save_processed_link(link)
-                    print(f"Successfully published & saved to history: {filename}")
+                    print(f"✅ Successfully published & saved to history: {filename}")
                 else:
-                    print(f"GitHub push failed for: {filename}")
+                    print(f"⚠️ GitHub push failed for: {filename}")
 
-                # গিটহাব পুশ রেট লিমিট বজায় রাখতে ছোট বিরতি
                 time.sleep(5)
 
         except Exception as e:
             print(f"Error in sync cycle: {e}")
 
-        # প্রতি ২০ মিনিট পর পর ফিড চেক করবে
         time.sleep(1200)
 
 @app.on_event("startup")
@@ -241,6 +239,7 @@ def start_background_task():
     thread = threading.Thread(target=rss_worker, daemon=True)
     thread.start()
 
-@app.get("/")
+# GET ও HEAD উভয় রিকোয়েস্ট হ্যান্ডেল করা হয়েছে যাতে 405 Method Not Allowed এরর বন্ধ হয়
+@app.api_route("/", methods=["GET", "HEAD"])
 def health_check():
     return {"status": "running", "service": "Pure Python RSS-to-GitHub Automation Bot"}
