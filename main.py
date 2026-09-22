@@ -66,9 +66,9 @@ def generate_seo_article(raw_title, raw_desc, file_link):
     """
 
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
-        contents=prompt
-    )
+    model='gemini-3.0-flash',
+    contents=prompt
+)
     return response.text
 
 # --- গিটহাবে পুশ ---
