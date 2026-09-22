@@ -5,10 +5,12 @@ layout: null
 <html lang="en">
 <head>
   <meta name="google-site-verification" content="iYp51deTLO2AFomakiN5IVU3uwmFzk25aNIibGWcL0k" />
+  
   <!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="{{ '/Gsm%20Firmware%20X.svg' | relative_url }}">
-<!-- Fallback for older browsers -->
-<link rel="alternate icon" type="image/png" href="{{ '/icon.png' | relative_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/Gsm%20Firmware%20X.svg' | absolute_url }}">
+  <link rel="alternate icon" type="image/png" href="{{ '/icon.png' | absolute_url }}">
+  <link rel="shortcut icon" href="{{ '/icon.png' | absolute_url }}">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GSM Firmware Hub - Master ROM Search</title>
@@ -168,11 +170,12 @@ layout: null
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       margin-top: 24px;
       margin-bottom: 24px;
+      flex-wrap: wrap;
     }
-    .page-link, .page-current {
+    .page-link, .page-current, .page-dots {
       padding: 8px 14px;
       font-size: 13px;
       border-radius: 6px;
@@ -192,6 +195,12 @@ layout: null
       color: #fff;
       border-color: var(--accent);
       font-weight: bold;
+    }
+    .page-dots {
+      background: transparent;
+      border: none;
+      color: #666;
+      cursor: default;
     }
 
     #no-results {
@@ -300,7 +309,7 @@ layout: null
         {% endif %}
       </div>
 
-      <!-- পোস্ট তালিকা (পেজিনেশন অনুযায়ী নির্দিষ্ট পোস্টগুলো রেন্ডার হবে) -->
+      <!-- পোস্ট তালিকা -->
       <div id="posts-container">
         {% assign display_posts = paginator.posts | default: site.posts %}
         {% for post in display_posts %}
@@ -321,23 +330,52 @@ layout: null
         <p>No matching firmware found for your search.</p>
       </div>
 
-      <!-- পেজ নম্বর ১, ২, ৩ ... বাটন সেকশন -->
+      <!-- আধুনিক কম্প্যাক্ট পেজিনেশন (১, ২, ৩ ... শেষ পেজ) -->
       {% if paginator.total_pages > 1 %}
       <div class="pagination" id="pagination-box">
+        <!-- Previous Button -->
         {% if paginator.previous_page %}
           <a href="{{ paginator.previous_page_path | relative_url }}" class="page-link">&laquo; Prev</a>
         {% endif %}
 
-        {% for page in (1..paginator.total_pages) %}
-          {% if page == paginator.page %}
-            <span class="page-current">{{ page }}</span>
-          {% elsif page == 1 %}
-            <a href="{{ '/' | relative_url }}" class="page-link">1</a>
-          {% else %}
-            <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="page-link">{{ page }}</a>
+        <!-- First Page (1) -->
+        {% if paginator.page == 1 %}
+          <span class="page-current">1</span>
+        {% else %}
+          <a href="{{ '/' | relative_url }}" class="page-link">1</a>
+        {% endif %}
+
+        <!-- Left Dots (...) -->
+        {% if paginator.page > 4 %}
+          <span class="page-dots">...</span>
+        {% endif %}
+
+        <!-- Middle Pages -->
+        {% for count in (2..paginator.total_pages) %}
+          {% if count < paginator.total_pages %}
+            {% if count >= paginator.page | minus: 2 and count <= paginator.page | plus: 2 %}
+              {% if count == paginator.page %}
+                <span class="page-current">{{ count }}</span>
+              {% else %}
+                <a href="{{ site.paginate_path | relative_url | replace: ':num', count }}" class="page-link">{{ count }}</a>
+              {% endif %}
+            {% endif %}
           {% endif %}
         {% endfor %}
 
+        <!-- Right Dots (...) -->
+        {% if paginator.page < paginator.total_pages | minus: 3 %}
+          <span class="page-dots">...</span>
+        {% endif %}
+
+        <!-- Last Page -->
+        {% if paginator.page == paginator.total_pages %}
+          <span class="page-current">{{ paginator.total_pages }}</span>
+        {% else %}
+          <a href="{{ site.paginate_path | relative_url | replace: ':num', paginator.total_pages }}" class="page-link">{{ paginator.total_pages }}</a>
+        {% endif %}
+
+        <!-- Next Button -->
         {% if paginator.next_page %}
           <a href="{{ paginator.next_page_path | relative_url }}" class="page-link">Next &raquo;</a>
         {% endif %}
@@ -367,7 +405,7 @@ layout: null
     </div>
   </div>
 
-  <!-- লাইভ সার্চ ও পেজিনেশন ভিজিবিলিটি স্ক্রিপ্ট -->
+  <!-- লাইভ সার্চ স্ক্রিপ্ট -->
   <script>
     function normalizeText(text) {
       return (text || '').toLowerCase().replace(/[-_./\\,\s+]/g, '');
@@ -412,7 +450,6 @@ layout: null
         }
       });
 
-      // সার্চ চলাকালীন পেজিনেশন বাটন হাইড থাকবে, খালি থাকলে ফেরত আসবে
       if (paginationBox) {
         paginationBox.style.display = (rawQuery === "") ? 'flex' : 'none';
       }
