@@ -38,7 +38,32 @@ def save_processed_link(link):
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(list(links), f, ensure_ascii=False, indent=2)
 
-# --- AI দিয়ে ১২০০ শব্দের এসইও কনটেন্ট তৈরি ---
+# --- সক্রিয় মডেল অটো-ডিটেক্ট ফাংশন ---
+def get_working_model():
+    """অ্যাকাউন্টে সচল থাকা মডেলগুলোর তালিকা থেকে স্বয়ংক্রিয়ভাবে মডেল বাছাই করে"""
+    default_fallback = "gemini-2.5-flash"
+    if not client:
+        return default_fallback
+
+    try:
+        models_pager = client.models.list()
+        available_models = [m.name for m in models_pager]
+
+        # অগ্রাধিকার অনুযায়ী উপযুক্ত মডেল খোঁজা
+        preferred_patterns = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'flash']
+        for pattern in preferred_patterns:
+            for m in available_models:
+                if pattern in m:
+                    return m.replace("models/", "")
+
+        if available_models:
+            return available_models[0].replace("models/", "")
+    except Exception as e:
+        print(f"Model listing fallback error: {e}")
+
+    return default_fallback
+
+# --- AI দিয়ে ১২০০ শব্দের এসইও কনটেন্ট তৈরি ---
 def generate_seo_article(raw_title, raw_desc, file_link):
     if not client:
         return None
@@ -65,11 +90,28 @@ def generate_seo_article(raw_title, raw_desc, file_link):
     5. Output ONLY Markdown content. No greetings or meta remarks.
     """
 
-    response = client.models.generate_content(
-    model='gemini-3.0-flash',
-    contents=prompt
-)
-    return response.text
+    model_name = get_working_model()
+    print(f"Selected active model: {model_name}")
+
+    try:
+        response = client.models.generate_content(
+            model=model_name,
+            contents=prompt
+        )
+        return response.text
+    except Exception as err:
+        print(f"Error generating with {model_name}: {err}")
+        # ফলব্যাক হিসেবে সরাসরি gemini-2.5-flash চেষ্টা করা
+        try:
+            fallback_model = 'gemini-2.5-flash'
+            response = client.models.generate_content(
+                model=fallback_model,
+                contents=prompt
+            )
+            return response.text
+        except Exception as final_err:
+            print(f"Final fallback generation failed: {final_err}")
+            return None
 
 # --- গিটহাবে পুশ ---
 def push_to_github(file_name, content):
@@ -125,7 +167,7 @@ def rss_worker():
                     else:
                         print(f"GitHub push failed for: {filename}")
 
-                time.sleep(15)  # API রেট লিমিট বজায় রাখতে সাময়িক বিরতি
+                time.sleep(15)  # API রেট লিমিট বজায় রাখতে সাময়িক বিরতি
 
         except Exception as e:
             print(f"Error in sync cycle: {e}")
@@ -133,7 +175,7 @@ def rss_worker():
         # ৩০ মিনিট পর পর ফিড চেক করবে
         time.sleep(1800)
 
-# ব্যাকগ্রাউন্ডে আরএসএস ওয়ার্কার চালু রাখা
+# ব্যাকগ্রাউন্ডে আরএসএস ওয়ার্কার চালু রাখা
 @app.on_event("startup")
 def start_background_task():
     thread = threading.Thread(target=rss_worker, daemon=True)
