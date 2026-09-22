@@ -6,6 +6,10 @@
 {% include copyright.html %}
 <html lang="{{ locale | replace: '_', '-' | default: 'en' }}" class="no-js" dir="{{ page.direction | default: layout.direction | default: site.direction | default: 'ltr' }}">
   <head>
+    <!-- Site Favicon for All Pages -->
+       <link rel="icon" type="image/svg+xml" href="{{ '/Gsm%20Firmware%20X.svg' | absolute_url }}">
+       <link rel="alternate icon" type="image/png" href="{{ '/icon.png' | absolute_url }}">
+       <link rel="shortcut icon" href="{{ '/icon.png' | absolute_url }}">
     {% include head.html locale=locale %}
     {% include head/custom.html %}
   </head>
