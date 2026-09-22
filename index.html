@@ -6,7 +6,7 @@ layout: null
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GSM Firmware Hub - Tested Flash Files</title>
+  <title>GSM Firmware Hub - Master ROM Search</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -56,15 +56,48 @@ layout: null
       color: #ccc;
       text-decoration: none;
       font-size: 13px;
-      padding: 6px 12px;
+      padding: 8px 12px;
       border-radius: 6px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       transition: 0.2s;
+      cursor: pointer;
+      text-align: left;
     }
-    .tag-btn:hover {
+    .tag-btn:hover, .tag-btn.active {
       background: var(--card-hover);
       color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* Search Bar Styling */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .search-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 14px 12px 40px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      background: #242424;
+      box-shadow: 0 0 8px rgba(46, 164, 79, 0.25);
     }
 
     /* Middle: Post Feed */
@@ -96,7 +129,7 @@ layout: null
       transform: translateY(-2px);
     }
     .post-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: bold;
       color: #fff;
       margin-bottom: 8px;
@@ -115,35 +148,13 @@ layout: null
       gap: 15px;
     }
 
-    /* Pagination Styling */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      margin-top: 24px;
-      margin-bottom: 24px;
-    }
-    .page-link, .page-current {
-      padding: 8px 14px;
-      font-size: 13px;
-      border-radius: 6px;
-      text-decoration: none;
-      border: 1px solid var(--border-color);
-      background: var(--card-bg);
-      color: #ccc;
-      transition: 0.2s;
-    }
-    .page-link:hover {
-      background: var(--card-hover);
-      color: #fff;
-      border-color: #444;
-    }
-    .page-current {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-      font-weight: bold;
+    /* No Result Text */
+    #no-results {
+      display: none;
+      text-align: center;
+      padding: 40px 10px;
+      color: var(--text-muted);
+      font-size: 15px;
     }
 
     /* Right Sidebar: Profile */
@@ -155,16 +166,16 @@ layout: null
       text-align: center;
     }
     .profile-avatar {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       background: #2a2a2a;
       margin: 0 auto 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 40px;
-      color: #666;
+      font-size: 36px;
+      color: #777;
       border: 2px solid var(--border-color);
     }
     .profile-name {
@@ -216,63 +227,53 @@ layout: null
 <body>
 
   <div class="container">
-    <!-- বাঁপাশের ট্যাগ লিস্ট -->
+    <!-- বাঁপাশের ট্যাগ বাটন (ক্লিক করলে লাইভ ফিল্টার হবে) -->
     <div class="sidebar-tags">
-      <div class="tag-title"><i class="fas fa-tags"></i> Top Brands</div>
+      <div class="tag-title"><i class="fas fa-tags"></i> Filter by Brand</div>
       <div class="tag-list">
-        <a href="{{ '/tags/#samsung-firmware' | relative_url }}" class="tag-btn">Samsung ROM</a>
-        <a href="{{ '/tags/#oppo-firmware' | relative_url }}" class="tag-btn">Oppo Firmware</a>
-        <a href="{{ '/tags/#vivo-firmware' | relative_url }}" class="tag-btn">Vivo Stock ROM</a>
-        <a href="{{ '/tags/#xiaomi-firmware' | relative_url }}" class="tag-btn">Xiaomi Flash File</a>
-        <a href="{{ '/tags/#realme-firmware' | relative_url }}" class="tag-btn">Realme ROM</a>
-        <a href="{{ '/tags/#stock-rom' | relative_url }}" class="tag-btn">MediaTek (MTK)</a>
-        <a href="{{ '/tags/#flashing-guide' | relative_url }}" class="tag-btn">Qualcomm QFIL</a>
+        <button class="tag-btn active" onclick="filterByKeyword('')">Show All Files</button>
+        <button class="tag-btn" onclick="filterByKeyword('oppo')">OPPO</button>
+        <button class="tag-btn" onclick="filterByKeyword('samsung')">Samsung</button>
+        <button class="tag-btn" onclick="filterByKeyword('vivo')">Vivo</button>
+        <button class="tag-btn" onclick="filterByKeyword('xiaomi')">Xiaomi / Redmi</button>
+        <button class="tag-btn" onclick="filterByKeyword('realme')">Realme</button>
+        <button class="tag-btn" onclick="filterByKeyword('cph')">CPH Series</button>
+        <button class="tag-btn" onclick="filterByKeyword('mtk')">MediaTek</button>
       </div>
     </div>
 
-    <!-- মাঝের পোস্ট ফিড (পেজিনেশন সহ) -->
+    <!-- মাঝের পোস্ট ফিড এবং ডিজিটাল সার্চ বার -->
     <div class="feed-section">
+      <!-- ডিজিটাল সার্চ বার -->
+      <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" id="live-search" class="search-input" placeholder="Search by model, CPH, brand, or firmware name..." onkeyup="performSearch()">
+      </div>
+
       <div class="feed-header">
         <span class="feed-title">Latest Firmwares</span>
-        {% if paginator.total_pages > 1 %}
-        <span style="font-size: 12px; color: var(--text-muted);">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
-        {% endif %}
+        <span id="post-counter" style="font-size: 12px; color: var(--text-muted);">Showing {{ site.posts | size }} items</span>
       </div>
 
-      <!-- পোস্ট লুপ (নির্দিষ্ট সংখ্যার পোস্ট দেখাবে) -->
-      {% for post in paginator.posts %}
-      <a href="{{ post.url | relative_url }}" class="post-card">
-        <h2 class="post-title">{{ post.title }}</h2>
-        <p class="post-desc">{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p>
-        <div class="post-meta">
-          <span><i class="far fa-calendar-alt"></i> {{ post.date | date: "%b %d, %Y" }}</span>
-          <span><i class="fas fa-shield-alt"></i> Tested & Clean</span>
-        </div>
-      </a>
-      {% endfor %}
-
-      <!-- পেজিনেশন নাম্বার বাটন (১, ২, ৩...) -->
-      {% if paginator.total_pages > 1 %}
-      <div class="pagination">
-        {% if paginator.previous_page %}
-          <a href="{{ paginator.previous_page_path | relative_url }}" class="page-link">&laquo; Prev</a>
-        {% endif %}
-
-        {% for page in (1..paginator.total_pages) %}
-          {% if page == paginator.page %}
-            <span class="page-current">{{ page }}</span>
-          {% elsif page == 1 %}
-            <a href="{{ '/' | relative_url }}" class="page-link">1</a>
-          {% else %}
-            <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="page-link">{{ page }}</a>
-          {% endif %}
+      <!-- পোস্ট তালিকা -->
+      <div id="posts-container">
+        {% for post in site.posts %}
+        <a href="{{ post.url | relative_url }}" class="post-card" data-search-text="{{ post.title | downcase }} {{ post.description | downcase }} {{ post.url | downcase }}">
+          <h2 class="post-title">{{ post.title }}</h2>
+          <p class="post-desc">{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p>
+          <div class="post-meta">
+            <span><i class="far fa-calendar-alt"></i> {{ post.date | date: "%b %d, %Y" }}</span>
+            <span><i class="fas fa-shield-alt"></i> Tested & Clean</span>
+          </div>
+        </a>
         {% endfor %}
-
-        {% if paginator.next_page %}
-          <a href="{{ paginator.next_page_path | relative_url }}" class="page-link">Next &raquo;</a>
-        {% endif %}
       </div>
-      {% endif %}
+
+      <!-- কোনো রেজাল্ট না পেলে নোটিশ -->
+      <div id="no-results">
+        <i class="fas fa-search" style="font-size: 28px; margin-bottom: 10px; color: #555;"></i>
+        <p>No matching firmware found. Try another keyword or CPH code.</p>
+      </div>
     </div>
 
     <!-- ডানপাশের প্রোফাইল কার্ড -->
@@ -296,6 +297,72 @@ layout: null
       </div>
     </div>
   </div>
+
+  <!-- উন্নত ডিজিটাল ফাজি ও টোকেন-বেসড লাইভ সার্চ স্ক্রিপ্ট -->
+  <script>
+    function normalizeText(text) {
+      // স্পেস, ড্যাশ, আন্ডারস্কোর এবং বিশেষ চিহ্ন বাদ দিয়ে ক্লিন টেক্সট তৈরি
+      return (text || '').toLowerCase().replace(/[-_./\\,\s+]/g, '');
+    }
+
+    function performSearch() {
+      const rawQuery = document.getElementById('live-search').value.toLowerCase().trim();
+      const searchTokens = rawQuery.split(/\s+/).filter(token => token.length > 0);
+      const cleanQuery = normalizeText(rawQuery);
+
+      const cards = document.querySelectorAll('.post-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const rawText = (card.getAttribute('data-search-text') || '').toLowerCase();
+        const cleanText = normalizeText(rawText);
+
+        let isMatch = false;
+
+        if (rawQuery === "") {
+          isMatch = true;
+        } else {
+          // ১. সরাসরি মিল বা চিহ্ন ছাড়া ক্লিন মিল (যেমন: cph2721 বা cph 2721)
+          if (rawText.includes(rawQuery) || cleanText.includes(cleanQuery)) {
+            isMatch = true;
+          } 
+          // ২. আংশিক শব্দভিত্তিক মিল (টোকেন ম্যাচিং - যেমন: oppo f29 বা 2721 701)
+          else if (searchTokens.length > 0) {
+            const allTokensMatched = searchTokens.every(token => {
+              const cleanToken = normalizeText(token);
+              return rawText.includes(token) || (cleanToken.length > 0 && cleanText.includes(cleanToken));
+            });
+            if (allTokensMatched) {
+              isMatch = true;
+            }
+          }
+        }
+
+        if (isMatch) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // কাউন্টার ও নো-রেজাল্ট হ্যান্ডলিং
+      document.getElementById('post-counter').innerText = `Showing ${visibleCount} items`;
+      document.getElementById('no-results').style.display = (visibleCount === 0) ? 'block' : 'none';
+    }
+
+    function filterByKeyword(keyword) {
+      document.getElementById('live-search').value = keyword;
+      
+      // বাটনের অ্যাক্টিভ ক্লাস চেঞ্জ
+      document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
+      if (window.event && window.event.target) {
+        window.event.target.classList.add('active');
+      }
+
+      performSearch();
+    }
+  </script>
 
 </body>
 </html>
