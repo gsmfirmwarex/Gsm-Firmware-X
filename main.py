@@ -102,7 +102,7 @@ def generate_seo_article(raw_title, raw_desc, file_link):
     ]
     intro = random.choice(openings)
 
-    # ৬০০ - ৮০০ শব্দের পূর্ণাঙ্গ প্রফেশনাল টেকনিক্যাল পোস্ট
+    # ৬০০ - ৮০০ শব্দের পূর্ণাঙ্গ প্রফেশনাল টেকনিক্যাল পোস্ট (Google Anti-Spam Link সহ)
     content = f"""---
 title: "{clean_name} Official Tested Stock ROM Firmware Flash File"
 description: "Download verified {clean_name} official stock firmware. Complete technical specifications, USB flashing setup, and step-by-step repair guide."
@@ -158,7 +158,11 @@ Before initiating the write operation on your computer, ensure the following mea
 ### Download Tested ROM Package
 To download the verified, virus-free stock ROM package, proceed directly to the primary download page:
 
-👉 **[Download {raw_title} Official Package Here]({file_link})**
+<p align="center">
+  <a href="{file_link}" rel="nofollow noopener" target="_blank" style="background-color: #2ea44f; color: #ffffff; padding: 12px 24px; font-size: 16px; font-weight: bold; text-decoration: none; border-radius: 6px; display: inline-block;">
+    📥 Download {raw_title} Official Package
+  </a>
+</p>
 
 ---
 **Tags & Keywords:** {hashtags}
@@ -223,7 +227,7 @@ def rss_worker():
                 else:
                     print(f"GitHub push failed for: {filename}")
 
-                # গিটহাব পুশ রেট লিমিট বজায় রাখতে ছোট বিরতি
+                # গিটহাব পুশ রেট লিমিট বজায় রাখতে ছোট বিরতি
                 time.sleep(5)
 
         except Exception as e:
