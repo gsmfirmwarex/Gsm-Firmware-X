@@ -1,5 +1,4 @@
 feedparser
-google-genai
-requests
-fastapi
-uvicorn
+   requests
+   fastapi
+   uvicorn
