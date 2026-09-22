@@ -1,88 +1,68 @@
----
-layout: default
----
-{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
-
-{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html locale=locale %}
-{% elsif page.header.video.id and page.header.video.provider %}
-  {% include page__hero_video.html %}
-{% endif %}
-
-{% assign breadcrumbs_enabled = site.breadcrumbs %}
-{% if page.breadcrumbs != null %}
-  {% assign breadcrumbs_enabled = page.breadcrumbs %}
-{% endif %}
-{% if page.url != "/" and breadcrumbs_enabled %}
-  {% unless paginator %}
-    {% include breadcrumbs.html locale=locale %}
-  {% endunless %}
-{% endif %}
-
-<div id="main" role="main">
-  {% include sidebar.html locale=locale %}
-
-  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
-    {% if page.title %}<meta itemprop="headline" content="{{ page.title | replace: '|', '&#124;' | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
-
-    <div class="page__inner-wrap">
-      {% unless page.header.overlay_color or page.header.overlay_image %}
-        <header>
-          {% if page.title -%}
-          <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="{{ page.url | absolute_url }}" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
-          </h1>
-          {%- endif %}
-          {% include page__meta.html locale=locale %}
-        </header>
-      {% endunless %}
-
-      <section class="page__content e-content" itemprop="text">
-        {% if page.toc %}
-          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-            <nav class="toc" aria-label="Table of contents">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
-            </nav>
-          </aside>
-        {% endif %}
-        {{ content }}
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
-      </section>
-
-      <footer class="page__meta">
-        {% if site.data.ui-text[locale].meta_label %}
-          <h4 class="page__meta-title">{{ site.data.ui-text[locale].meta_label }}</h4>
-        {% endif %}
-        {% include page__taxonomy.html locale=locale %}
-        {% include page__date.html locale=locale %}
-      </footer>
-
-      {% if page.share %}{% include social-share.html locale=locale %}{% endif %}
-
-      {% include post_pagination.html locale=locale %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-color: #191919;
+      --card-bg: #202020;
+      --text-main: #ffffff;
+      --text-muted: #aaaaaa;
+      --border-color: #2e2e2e;
+      --accent: #2ea44f;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 30px 15px;
+      line-height: 1.6;
+    }
+    .post-wrapper {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 35px;
+    }
+    .back-home {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #888;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back-home:hover { color: #fff; }
+    h1 { font-size: 26px; margin-bottom: 12px; color: #fff; line-height: 1.3; }
+    .post-date { font-size: 13px; color: var(--text-muted); margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+    h2, h3 { margin-top: 25px; margin-bottom: 12px; color: #f0f0f0; }
+    p { margin-bottom: 16px; color: #d0d0d0; }
+    ul, ol { margin-left: 20px; margin-bottom: 16px; color: #d0d0d0; }
+    li { margin-bottom: 8px; }
+    
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+    th, td { border: 1px solid var(--border-color); padding: 10px 14px; text-align: left; }
+    th { background: #282828; color: #fff; }
+    td { background: #1c1c1c; color: #ccc; }
+    
+    code { background: #2a2a2a; color: #4ade80; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="post-wrapper">
+    <a href="{{ '/' | relative_url }}" class="back-home"><i class="fas fa-arrow-left"></i> Back to All Firmwares</a>
+    <h1>{{ page.title }}</h1>
+    <div class="post-date"><i class="far fa-calendar-alt"></i> {{ page.date | date: "%B %d, %Y" }} • Tested Firmware</div>
+    <div class="post-body">
+      {{ content }}
     </div>
-
-    {% if site.comments.provider and page.comments %}
-      {% if jekyll.environment == 'production' %}
-        {% include comments.html locale=locale %}
-      {% else %}
-        <p>
-          Comments are configured with provider: <strong>{{ site.comments.provider }}</strong>,
-          but are disabled in non-production environments.
-        </p>
-      {% endif %}
-    {% endif %}
-  </article>
-
-  {% comment %}<!-- only show related on a post page when `related: true` -->{% endcomment %}
-  {% if page.id and page.related and site.related_posts.size > 0 %}
-    {% include page__related.html locale=locale posts=site.related_posts %}
-  {% comment %}<!-- otherwise show recent posts if no related when `related: true` -->{% endcomment %}
-  {% elsif page.id and page.related %}
-    {% include page__related.html locale=locale posts=site.posts %}
-  {% endif %}
-</div>
+  </div>
+</body>
+</html>
