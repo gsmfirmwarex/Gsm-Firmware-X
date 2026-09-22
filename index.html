@@ -115,6 +115,37 @@ layout: null
       gap: 15px;
     }
 
+    /* Pagination Styling */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .page-link, .page-current {
+      padding: 8px 14px;
+      font-size: 13px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: #ccc;
+      transition: 0.2s;
+    }
+    .page-link:hover {
+      background: var(--card-hover);
+      color: #fff;
+      border-color: #444;
+    }
+    .page-current {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      font-weight: bold;
+    }
+
     /* Right Sidebar: Profile */
     .profile-card {
       background: var(--card-bg);
@@ -199,13 +230,17 @@ layout: null
       </div>
     </div>
 
-    <!-- মাঝের পোস্ট ফিড (পাইথনের তৈরি পোস্টগুলো এখানে স্বয়ংক্রিয়ভাবে শো করবে) -->
+    <!-- মাঝের পোস্ট ফিড (পেজিনেশন সহ) -->
     <div class="feed-section">
       <div class="feed-header">
         <span class="feed-title">Latest Firmwares</span>
+        {% if paginator.total_pages > 1 %}
+        <span style="font-size: 12px; color: var(--text-muted);">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+        {% endif %}
       </div>
 
-      {% for post in site.posts %}
+      <!-- পোস্ট লুপ (নির্দিষ্ট সংখ্যার পোস্ট দেখাবে) -->
+      {% for post in paginator.posts %}
       <a href="{{ post.url | relative_url }}" class="post-card">
         <h2 class="post-title">{{ post.title }}</h2>
         <p class="post-desc">{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p>
@@ -215,6 +250,29 @@ layout: null
         </div>
       </a>
       {% endfor %}
+
+      <!-- পেজিনেশন নাম্বার বাটন (১, ২, ৩...) -->
+      {% if paginator.total_pages > 1 %}
+      <div class="pagination">
+        {% if paginator.previous_page %}
+          <a href="{{ paginator.previous_page_path | relative_url }}" class="page-link">&laquo; Prev</a>
+        {% endif %}
+
+        {% for page in (1..paginator.total_pages) %}
+          {% if page == paginator.page %}
+            <span class="page-current">{{ page }}</span>
+          {% elsif page == 1 %}
+            <a href="{{ '/' | relative_url }}" class="page-link">1</a>
+          {% else %}
+            <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="page-link">{{ page }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if paginator.next_page %}
+          <a href="{{ paginator.next_page_path | relative_url }}" class="page-link">Next &raquo;</a>
+        {% endif %}
+      </div>
+      {% endif %}
     </div>
 
     <!-- ডানপাশের প্রোফাইল কার্ড -->
@@ -228,7 +286,7 @@ layout: null
         <div class="profile-bio">Verified Android flash files, unbrick stock firmware, and repair packages.</div>
         
         <div class="profile-links">
-          <a href="https://firmwareworld.com" target="_blank" rel="nofollow" class="btn-link">
+          <a href="https://firmwareworld.com" target="_blank" rel="nofollow noopener" class="btn-link">
             <i class="fas fa-external-link-alt"></i> Source Website
           </a>
           <a href="https://github.com/gsmfirmwarex" target="_blank" class="btn-link">
