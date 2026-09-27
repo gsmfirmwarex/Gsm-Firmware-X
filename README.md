@@ -1,293 +1,348 @@
-# [Minimal Mistakes Jekyll theme](https://mmistakes.github.io/minimal-mistakes/)
-
-[![LICENSE](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/mmistakes/minimal-mistakes/master/LICENSE)
-[![Jekyll](https://img.shields.io/badge/jekyll-%3E%3D%203.7-blue.svg)](https://jekyllrb.com/)
-
-Minimal Mistakes is a flexible two-column Jekyll theme, perfect for building personal sites, blogs, and portfolios. As the name implies, styling is purposely minimalistic to be enhanced and customized by you :smile:.
-
-:sparkles: See what's new in the [CHANGELOG](CHANGELOG.md).
-
-**Note:** The theme uses the [jekyll-include-cache](https://github.com/benbalter/jekyll-include-cache) plugin which will need to be installed in your `Gemfile` and must be retained in the `plugins` array of `_config.yml`. Otherwise you'll encounter `Unknown tag 'include_cached'` errors at build.
-
-[![Minimal Mistakes live preview][2]][1]
-
-[1]: https://mmistakes.github.io/minimal-mistakes/
-[2]: docs/screenshot.png (live preview)
-
-![layout examples](docs/screenshot-layouts.png)
-
-## Notable features
-
-- Bundled as a "theme gem" for easier installation/upgrading.
-- Compatible with GitHub Pages.
-- Support for Jekyll's built-in Sass/SCSS preprocessor.
-- Nine different skins (color variations).
-- Several responsive layout options (single, archive index, search, splash, and paginated home page).
-- Optimized for search engines with support for [Twitter Cards](https://dev.twitter.com/cards/overview) and [Open Graph](http://ogp.me/) data.
-- Optional [header images](https://mmistakes.github.io/minimal-mistakes/docs/layouts/#headers), [custom sidebars](https://mmistakes.github.io/minimal-mistakes/docs/layouts/#sidebars), [table of contents](https://mmistakes.github.io/minimal-mistakes/docs/helpers/#table-of-contents), [galleries](https://mmistakes.github.io/minimal-mistakes/docs/helpers/#gallery), related posts, [breadcrumb links](https://mmistakes.github.io/minimal-mistakes/docs/configuration/#breadcrumb-navigation-beta), [navigation lists](https://mmistakes.github.io/minimal-mistakes/docs/helpers/#navigation-list), and more.
-- Commenting support (powered by [Disqus](https://disqus.com/), [Facebook](https://developers.facebook.com/docs/plugins/comments), Google+, [Discourse](https://www.discourse.org/), static-based via [Staticman](https://staticman.net/), [utterances](https://utteranc.es/), and [giscus](https://giscus.app/)).
-- [Google Analytics](https://www.google.com/analytics/) support.
-- [Swetrix](https://swetrix.com/) GDPR-compliant analytics support.
-- UI localized text in English (default), Arabic (عربي), Brazilian Portuguese (Português brasileiro), Bulgarian, Catalan, Chinese, Czech, Danish, Dutch, Finnish, French (Français), German (Deutsch), Greek, Hebrew, Hindi (हिंदी), Hungarian, Indonesian, Irish (Gaeilge), Italian (Italiano), Japanese, Kiswahili, Korean, Malayalam, Myanmar (Burmese), Nepali (Nepalese), Norwegian (Norsk), Persian (فارسی), Polish, Punjabi (ਪੰਜਾਬੀ), Romanian, Russian, Slovak, Spanish (Español), Swedish, Thai, Turkish (Türkçe), Ukrainian (Українська) and Vietnamese.
-
-## Skins (color variations)
-
-This theme comes in 11 different skins (in addition to the default one).
-
-| `air`                                                                                                                                                                                 | `contrast`                                                                                                                                                                                           | `dark`                                                                                                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![air skin](docs/assets/images/air-skin-archive.png)](docs/assets/images/air-skin-archive-large.png) | [![contrast skin](docs/assets/images/contrast-skin-archive.png)](docs/assets/images/contrast-skin-archive-large.png) | [![dark skin](docs/assets/images/dark-skin-archive.png)](docs/assets/images/dark-skin-archive-large.png) |
-
-| `dirt`                                                                                                                                                                                   | `mint`                                                                                                                                                                                   | `sunrise`                                                                                                                                                                                         |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![dirt skin](docs/assets/images/dirt-skin-archive.png)](docs/assets/images/dirt-skin-archive-large.png) | [![mint skin](docs/assets/images/mint-skin-archive.png)](docs/assets/images/mint-skin-archive-large.png) | [![sunrise skin](docs/assets/images/sunrise-skin-archive.png)](docs/assets/images/sunrise-skin-archive-large.png) |
-
-| `aqua`                                                                                                                                                                                   | `neon`                                                                                                                                                                                   | `plum`                                                                                                                                                                                   |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![aqua skin](docs/assets/images/aqua-skin-archive.png)](docs/assets/images/aqua-skin-archive-large.png) | [![neon skin](docs/assets/images/neon-skin-archive.png)](docs/assets/images/neon-skin-archive-large.png) | [![plum skin](docs/assets/images/plum-skin-archive.png)](docs/assets/images/plum-skin-archive-large.png) |
-
-| `catppuccin_latte` | `catppuccin_mocha` |
-| --- | --- |
-| ![catppuccin_latte skin](docs/assets/images/catppuccin_latte-skin-archive-large.png) | ![catppuccin_mocha skin](docs/assets/images/catppuccin_mocha-skin-archive-large.png) |
-## Demo pages
-
-| Name                                            | Description                                                   |
-| ----------------------------------------------- | ------------------------------------------------------------- |
-| [Post with Header Image][header-image-post]     | A post with a large header image.                             |
-| [HTML Tags and Formatting Post][html-tags-post] | A variety of common markup showing how the theme styles them. |
-| [Syntax Highlighting Post][syntax-post]         | Post displaying highlighted code.                             |
-| [Post with a Gallery][gallery-post]             | A post showing several images wrapped in `<figure>` elements. |
-| [Sample Collection Page][sample-collection]     | Single page from a collection.                                |
-| [Categories Archive][categories-archive]        | Posts grouped by category.                                    |
-| [Tags Archive][tags-archive]                    | Posts grouped by tag.                                         |
-
-Additional sample posts are available under [posts archive][year-archive] on the demo site. Source files for these (and the entire demo site) can be found in [`/docs`](docs).
-
-[header-image-post]: https://mmistakes.github.io/minimal-mistakes/layout-header-image-text-readability/
-[gallery-post]: https://mmistakes.github.io/minimal-mistakes/post%20formats/post-gallery/
-[html-tags-post]: https://mmistakes.github.io/minimal-mistakes/markup/markup-html-tags-and-formatting/
-[syntax-post]: https://mmistakes.github.io/minimal-mistakes/markup-syntax-highlighting/
-[sample-collection]: https://mmistakes.github.io/minimal-mistakes/recipes/chocolate-chip-cookies/
-[categories-archive]: https://mmistakes.github.io/minimal-mistakes/categories/
-[tags-archive]: https://mmistakes.github.io/minimal-mistakes/tags/
-[year-archive]: https://mmistakes.github.io/minimal-mistakes/year-archive/
-
-## Installation
-
-There are three ways to install: as a [gem-based theme](https://jekyllrb.com/docs/themes/#understanding-gem-based-themes), as a [remote theme](https://blog.github.com/2017-11-29-use-any-theme-with-github-pages/) (GitHub Pages compatible), or forking/directly copying all of the theme files into your project.
-
-### Gem-based method
-
-With Gem-based themes, directories such as the `assets`, `_layouts`, `_includes`, and `_sass` are stored in the theme’s gem, hidden from your immediate view. Yet all of the necessary directories will be read and processed during Jekyll’s build process.
-
-This allows for easier installation and updating as you don't have to manage any of the theme files. To install:
-
-1. Add the following to your `Gemfile`:
-
-   ```ruby
-   gem "minimal-mistakes-jekyll"
-   ```
-
-2. Fetch and update bundled gems by running the following [Bundler](http://bundler.io/) command:
-
-   ```bash
-   bundle
-   ```
-
-3. Set the `theme` in your project's Jekyll `_config.yml` file:
-
-   ```yaml
-   theme: minimal-mistakes-jekyll
-   ```
-
-To update the theme run `bundle update`.
-
-### Remote theme method
-
-Remote themes are similar to Gem-based themes, but do not require `Gemfile` changes or whitelisting making them ideal for sites hosted with GitHub Pages.
-
-To install:
-
-1. Create/replace the contents of your `Gemfile` with the following:
-
-   ```ruby
-   source "https://rubygems.org"
-
-   gem "github-pages", group: :jekyll_plugins
-   gem "jekyll-include-cache", group: :jekyll_plugins
-   ```
-
-2. Add `jekyll-include-cache` to the `plugins` array of your `_config.yml`.
-
-3. Fetch and update bundled gems by running the following [Bundler](https://bundler.io/) command:
-
-   ```bash
-   bundle
-   ```
-
-4. Add `remote_theme: "mmistakes/minimal-mistakes@4.28.1"` to your `_config.yml` file. Remove any other `theme:` or `remote_theme:` entry.
-
-<!--
-  Dev note: The version number is currently hard-coded in these files:
-
-    - package.json
-    - README.md (this file)
-    - docs/_data/theme.yml
-    - docs/_pages/home.md (in Front Matter "excerpt")
-
-  `package.json` holds the authoritative version number, and the others can be updated with `bundle exec rake version`.
-
-  The following files should also be regenerated:
-
-    - _includes/copyright.html, _includes/copyright.js, _sass/minimal-mistakes/_copyright.scss
-      (Run `bundle exec rake clean` then `bundle exec rake copyright` - all three references `package.json`)
-    - assets/js/main.min.js (Run `bundle exec rake js`, references `_includes/copyright.js`)
-
-  *Tip*: The default Rake task will update all of the above files at once.
-
-  Additionally, the license year is hard-coded in these files and are NOT covered by a Rake task:
-
-    - README.md (this file, near the end)
-    - LICENSE
--->
-
-**Looking for an example?** Use the [Minimal Mistakes remote theme starter](https://github.com/mmistakes/mm-github-pages-starter/generate) for the quickest method of getting a GitHub Pages hosted site up and running. Generate a new repository from the starter, replace sample content with your own, and configure as needed.
-
-## Usage
-
-For detailed instructions on how to configure, customize, add/migrate content, and more read the [theme's documentation](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/).
-
-## Contributing
-
-Found a typo in the documentation or interested in [fixing a bug](https://github.com/mmistakes/minimal-mistakes/issues)? Then by all means [submit an issue](https://github.com/mmistakes/minimal-mistakes/issues/new) or [pull request](https://help.github.com/articles/using-pull-requests/). If this is your first pull request, it may be helpful to read up on the [GitHub Flow](https://guides.github.com/introduction/flow/) first.
-
-For help with using the theme or general Jekyll support questions, please use the [Jekyll Talk forums](https://talk.jekyllrb.com/).
-
-### Pull Requests
-
-When submitting a pull request:
-
-1. Clone the repo.
-2. Create a branch off of `master` and give it a meaningful name (e.g. `my-awesome-new-feature`).
-3. Open a pull request on GitHub and describe the feature or fix.
-
-Theme documentation and demo pages can be found in the [`/docs`](docs) if submitting improvements, typo corrections, etc.
-
-## Development
-
-To set up your environment to develop this theme, run `bundle install`.
-
-To test the theme, run `bundle exec rake preview` and open your browser at `http://localhost:4000/test/`. This starts a Jekyll server using content in the `test/` directory. As modifications are made to the theme and test site, it will regenerate and you should see the changes in the browser after a refresh.
-
-## Credits
-
-### Creator
-
-**Michael Rose**
-
-- <https://mademistakes.com>
-- <https://twitter.com/mmistakes>
-- <https://github.com/mmistakes>
-
-### Icons + Demo Images:
-
-- [The Noun Project](https://thenounproject.com) - Garrett Knoll, Arthur Shlain, and [tracy tam](https://thenounproject.com/tracytam)
-- [Font Awesome](http://fontawesome.io/)
-- [Unsplash](https://unsplash.com/)
-
-### Other:
-
-- [Jekyll](http://jekyllrb.com/)
-- [jQuery](http://jquery.com/)
-- [Susy](http://susy.oddbird.net/)
-- [Breakpoint](http://breakpoint-sass.com/)
-- [Magnific Popup](http://dimsemenov.com/plugins/magnific-popup/)
-- [FitVids.JS](http://fitvidsjs.com/)
-- [GreedyNav.js](https://github.com/lukejacksonn/GreedyNav)
-- [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-- [Gumshoe](https://github.com/cferdinandi/gumshoe)
-- [jQuery throttle / debounce](http://benalman.com/projects/jquery-throttle-debounce-plugin/)
-- [Lunr](http://lunrjs.com)
-- [Clipboard.js](https://clipboardjs.com)
-
-## License
-
-The MIT License (MIT)
-
-Copyright (c) 2013-2024 Michael Rose and contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-Minimal Mistakes incorporates icons from [The Noun Project](https://thenounproject.com/) 
-creators Garrett Knoll, Arthur Shlain, and tracy tam.
-Icons are distributed under Creative Commons Attribution 3.0 United States (CC BY 3.0 US).
-
-Minimal Mistakes incorporates [Font Awesome](http://fontawesome.io/),
-Copyright (c) 2017 Dave Gandy.
-Font Awesome is distributed under the terms of the [SIL OFL 1.1](http://scripts.sil.org/OFL) 
-and [MIT License](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates photographs from [Unsplash](https://unsplash.com).
-
-Minimal Mistakes incorporates [Susy](http://susy.oddbird.net/),
-Copyright (c) 2017, Miriam Eric Suzanne.
-Susy is distributed under the terms of the [BSD 3-clause "New" or "Revised" License](https://opensource.org/licenses/BSD-3-Clause).
-
-Minimal Mistakes incorporates [Breakpoint](http://breakpoint-sass.com/).
-Breakpoint is distributed under the terms of the [MIT/GPL Licenses](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates [FitVids.js](https://github.com/davatron5000/FitVids.js/),
-Copyright (c) 2013 Dave Rubert and Chris Coyier.
-FitVids is distributed under the terms of the [WTFPL License](http://www.wtfpl.net/).
-
-Minimal Mistakes incorporates [Magnific Popup](http://dimsemenov.com/plugins/magnific-popup/),
-Copyright (c) 2014-2016 Dmitry Semenov, http://dimsemenov.com.
-Magnific Popup is distributed under the terms of the MIT License.
-
-Minimal Mistakes incorporates [Smooth Scroll](http://github.com/cferdinandi/smooth-scroll),
-Copyright (c) 2019 Chris Ferdinandi.
-Smooth Scroll is distributed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates [Gumshoejs](http://github.com/cferdinandi/gumshoe),
-Copyright (c) 2019 Chris Ferdinandi.
-Gumshoejs is distributed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates [jQuery throttle / debounce](http://benalman.com/projects/jquery-throttle-debounce-plugin/),
-Copyright (c) 2010 "Cowboy" Ben Alman.
-jQuery throttle / debounce is distributed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates [GreedyNav.js](https://github.com/lukejacksonn/GreedyNav),
-Copyright (c) 2015 Luke Jackson.
-GreedyNav.js is distributed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates [Jekyll Group-By-Array](https://github.com/mushishi78/jekyll-group-by-array),
-Copyright (c) 2015 Max White <mushishi78@gmail.com>.
-Jekyll Group-By-Array is distributed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates [@allejo's Pure Liquid Jekyll Table of Contents](https://allejo.io/blog/a-jekyll-toc-in-liquid-only/),
-Copyright (c) 2017 Vladimir Jimenez.
-Pure Liquid Jekyll Table of Contents is distributed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates [Lunr](http://lunrjs.com),
-Copyright (c) 2018 Oliver Nightingale.
-Lunr is distributed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-Minimal Mistakes incorporates [clipboard.js](https://clipboardjs.com/),
-Copyright (c) 2021 Zeno Rocha.
-Clipboard.js is distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT). 
+import os
+import json
+import time
+import re
+import random
+import threading
+from datetime import datetime
+import base64
+import feedparser
+import requests
+from fastapi import FastAPI
+
+app = FastAPI()
+
+# ==============================================================================
+# ১. কনফিগারেশন সেটআপ
+# ==============================================================================
+RSS_FEED_URL = os.getenv("RSS_FEED_URL", "https://firmwareworld.com/index.php?a=rss")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_REPO = os.getenv("GITHUB_REPO", "gsmfirmwarex/Gsm-Firmware-X")
+BRANCH = os.getenv("GITHUB_BRANCH", "master")
+POSTS_FOLDER = "_posts"
+REMOTE_HISTORY_FILE = "processed_posts.json"
+
+# সর্বোচ্চ যতগুলো পোস্ট রিপোজিটরিতে থাকবে (৩০০টি)
+MAX_POSTS_LIMIT = 300
+
+# ==============================================================================
+# ২. GitHub-ভিত্তিক JSON হিস্ট্রি ট্র্যাকিং (ডুপ্লিকেট প্রতিরোধ)
+# ==============================================================================
+def get_remote_json():
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{REMOTE_HISTORY_FILE}?ref={BRANCH}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    try:
+        res = requests.get(url, headers=headers, timeout=15)
+        if res.status_code == 200:
+            data = res.json()
+            file_sha = data.get("sha")
+            raw_content = base64.b64decode(data.get("content", "")).decode("utf-8")
+            links_list = json.loads(raw_content)
+            return set(links_list), file_sha
+        elif res.status_code == 404:
+            return set(), None
+        else:
+            print(f"⚠️ Fetch history status: {res.status_code}")
+            return set(), None
+    except Exception as e:
+        print(f"⚠️ History fetch exception: {e}")
+        return set(), None
+
+def save_remote_json(processed_links, sha=None):
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{REMOTE_HISTORY_FILE}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    content_json = json.dumps(list(processed_links), indent=2, ensure_ascii=False)
+    encoded_content = base64.b64encode(content_json.encode("utf-8")).decode("utf-8")
+
+    payload = {
+        "message": "Update processed firmware RSS links history",
+        "content": encoded_content,
+        "branch": BRANCH
+    }
+    if sha:
+        payload["sha"] = sha
+
+    try:
+        res = requests.put(url, headers=headers, json=payload, timeout=20)
+        if res.status_code in [200, 201]:
+            new_sha = res.json().get("content", {}).get("sha")
+            return new_sha
+        else:
+            print(f"❌ Failed to save history to GitHub: {res.status_code}")
+            return sha
+    except Exception as e:
+        print(f"❌ Save history exception: {e}")
+        return sha
+
+# ==============================================================================
+# ৩. অটো রোটেশন ও পুরনো পোস্ট ডিলিট ইঞ্জিন (FIFO Auto Clean)
+# ==============================================================================
+def manage_post_limit():
+    """_posts ফোল্ডারে ৩০০ টির বেশি ফাইল হলে সবচেয়ে পুরনো ফাইলগুলো ডিলিট করে দেয়"""
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{POSTS_FOLDER}?ref={BRANCH}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+
+    try:
+        res = requests.get(url, headers=headers, timeout=20)
+        if res.status_code == 200:
+            files = res.json()
+            # শুধু .md ফাইল ফিল্টার করা
+            md_files = [f for f in files if f.get("name", "").endswith(".md")]
+            
+            # ফাইলের নাম সাধারণত 'YYYY-MM-DD-slug.md' ফরম্যাটে থাকে, তাই নামের ক্রমানুসারে সর্ট করা যায়
+            md_files.sort(key=lambda x: x["name"])
+
+            total_posts = len(md_files)
+            if total_posts > MAX_POSTS_LIMIT:
+                overflow_count = total_posts - MAX_POSTS_LIMIT
+                print(f"🧹 Post limit exceeded ({total_posts}/{MAX_POSTS_LIMIT}). Deleting oldest {overflow_count} post(s)...")
+
+                for i in range(overflow_count):
+                    old_file = md_files[i]
+                    del_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{POSTS_FOLDER}/{old_file['name']}"
+                    del_payload = {
+                        "message": f"Auto-clean oldest post to maintain {MAX_POSTS_LIMIT} limit",
+                        "sha": old_file["sha"],
+                        "branch": BRANCH
+                    }
+                    del_res = requests.delete(del_url, headers=headers, json=del_payload, timeout=20)
+                    if del_res.status_code in [200, 201]:
+                        print(f"🗑️ Deleted oldest file: {old_file['name']}")
+                    else:
+                        print(f"⚠️ Failed to delete {old_file['name']}: {del_res.status_code}")
+                    time.sleep(2)
+        else:
+            print(f"⚠️ Could not check _posts directory size: {res.status_code}")
+    except Exception as e:
+        print(f"⚠️ Error managing post limit: {e}")
+
+# ==============================================================================
+# ৪. খাঁটি পাইথন কনটেন্ট জেনারেটর (SEO)
+# ==============================================================================
+BRANDS = [
+    "Samsung", "Oppo", "Vivo", "Xiaomi", "Realme", "Infinix", 
+    "Tecno", "OnePlus", "Motorola", "Huawei", "Honor", "Nokia", "Itel"
+]
+
+def analyze_firmware_data(title):
+    detected_brand = "Android"
+    for brand in BRANDS:
+        if re.search(r'\b' + brand + r'\b', title, re.IGNORECASE):
+            detected_brand = brand
+            break
+
+    title_lower = title.lower()
+    if "scatter" in title_lower or "mt" in title_lower or "mediatek" in title_lower:
+        chipset = "MediaTek (MTK)"
+        tool = "SP Flash Tool / UnlockTool"
+    elif "qualcomm" in title_lower or "qcom" in title_lower or "edl" in title_lower or "prog" in title_lower:
+        chipset = "Qualcomm Snapdragon"
+        tool = "QFIL / QPST / Qualcomm Flash Image Loader"
+    elif "pac" in title_lower or "spd" in title_lower or "unisoc" in title_lower:
+        chipset = "Spreadtrum (SPD / Unisoc)"
+        tool = "SPD Upgrade Tool / Research Download"
+    elif detected_brand == "Samsung":
+        chipset = "Exynos / Snapdragon"
+        tool = "Odin Downloader"
+    else:
+        chipset = "Official Manufacturer Hardware"
+        tool = f"Authorized {detected_brand} Flash Suite"
+
+    clean_name = re.sub(r'[_.-]', ' ', title).strip()
+    return detected_brand, clean_name, chipset, tool
+
+def generate_seo_article(raw_title, raw_desc, file_link):
+    brand, clean_name, chipset, flash_tool = analyze_firmware_data(raw_title)
+    date_str = datetime.now().strftime("%Y-%m-%d")
+
+    tags = [
+        f"{brand.lower()} firmware",
+        f"{brand.lower()} flash file",
+        "stock rom",
+        "tested rom",
+        "gsm repair",
+        "official software",
+        "unbrick smartphone"
+    ]
+    hashtags = f"#{brand}Firmware #{brand}FlashFile #StockROM #GSMRepair #FlashingGuide #UnbrickPhone"
+
+    openings = [
+        f"Restoring your {clean_name} back to factory fresh operating condition requires genuine and verified stock software. Whether you are dealing with a severe bootloop, resolving continuous app crashes, or recovering from a corrupted OS update, this official tested firmware package provides the ultimate repair solution.",
+        f"Encountering system stability problems, frozen startup screens, or firmware partition errors on your {clean_name}? Flashing the original factory ROM remains the most reliable technical method to revive your device safely without damaging system health.",
+        f"Having a clean and verified stock flash file is paramount when troubleshooting advanced Android software malfunctions. Below is the full technical breakdown, USB setup parameters, and step-by-step unbrick procedure for the {clean_name}."
+    ]
+    intro = random.choice(openings)
+
+    content = f"""---
+title: "{clean_name} Official Tested Stock ROM Firmware Flash File"
+description: "Download verified {clean_name} official stock firmware. Complete technical specifications, USB flashing setup, and step-by-step repair guide."
+date: {date_str}
+categories: [Firmware, {brand}]
+tags: {tags}
+---
+
+{intro}
+
+### Technical Specification Overview
+The table below highlights the critical technical information regarding this firmware build:
+
+| Parameter | Specification Details |
+| :--- | :--- |
+| **Package / ROM Name** | `{raw_title}` |
+| **Device Manufacturer** | {brand} |
+| **Chipset Architecture** | {chipset} |
+| **Recommended Utility** | {flash_tool} |
+| **Software Status** | 100% Tested & Verified Clean |
+| **File Format Structure** | Factory Stock Binary Archive |
+
+### Critical Software Issues Resolved by This Firmware
+Installing this official tested flash file addresses numerous critical operational errors:
+* **Bootloop and Logo Freezes:** Eliminates constant reboot cycles where the device cannot pass the brand boot logo.
+* **Network & Baseband Corruption:** Restores missing IMEI numbers, unknown baseband versions, and unstable radio signals caused by damaged NVRAM/EFS partitions.
+* **System Bloat & Malware Infiltration:** Eradicates stubborn adware, root-level trojans, and unwanted preloaded background bloatware.
+* **Rollback & Warranty Restoration:** Reverts risky experimental custom ROMs and unroots the device cleanly back to genuine factory state.
+* **Hard Brick & Fastboot Recovery:** Safely recovers devices that fail to power on normally or remain stuck inside emergency download modes.
+
+### Flashing Pre-requisites & Preparation
+Before initiating the write operation on your computer, ensure the following measures are in place:
+1. **Sufficient Battery Power:** Charge the handset to at least 60% capacity to eliminate shutdown risks midway through the write cycle.
+2. **Motherboard Data Cable:** Utilize an authentic, high-grade USB data cable connected directly to your computer's rear USB ports for uninterrupted data transfer.
+3. **Dedicated Driver Handshake:** Install the official {brand} USB drivers and proper {chipset} CDC/VCOM drivers on your Windows workstation.
+4. **Complete Data Backup:** Flashing will format internal user storage partitions entirely. Ensure you back up all personal files, media, and contacts if the phone is still accessible.
+
+### Step-by-Step Installation Instructions
+1. Download the archive package `{raw_title}.zip` to your computer and extract it using 7-Zip or WinRAR.
+2. Launch the authorized **{flash_tool}** using Administrator privileges.
+3. Locate and load the firmware partition map (Scatter, PAC, or RawProgram XML file) from the extracted ROM folder.
+4. Power off your {clean_name} completely.
+5. Hold the hardware Boot Key sequence (commonly Volume Up + Volume Down or Volume Down only) and plug the USB cable into your device.
+6. The flashing utility will initiate the handshake. Click **Download / Flash** and allow the data transfer to reach 100% completion.
+7. Disconnect the USB cable once you see the green checkmark or Success notification, then restart the smartphone.
+
+### Frequently Asked Questions (FAQ)
+* **Q: Will this firmware void my manufacturer warranty?**  
+  *No, this is genuine official factory stock ROM, meaning it restores original factory warranty compliance.*
+* **Q: What should I do if the flashing process gets interrupted?**  
+  *Do not panic. Keep calm, reinstall proper USB drivers, recharge the device via wall adapter, and re-run the flashing procedure from Step 1.*
+
+### Download Tested ROM Package
+To download the verified, virus-free stock ROM package, proceed directly to the primary download page:
+
+<p align="center">
+  <a href="{file_link}" rel="nofollow noopener" target="_blank" style="background-color: #2ea44f; color: #ffffff; padding: 12px 24px; font-size: 16px; font-weight: bold; text-decoration: none; border-radius: 6px; display: inline-block;">
+    📥 Download {raw_title} Official Package
+  </a>
+</p>
+
+---
+**Tags & Keywords:** {hashtags}
+"""
+    return content
+
+# ==============================================================================
+# ৫. গিটহাবে পুশ ও স্লাগ তৈরি
+# ==============================================================================
+def push_to_github(file_name, content):
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{POSTS_FOLDER}/{file_name}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+
+    sha = None
+    try:
+        check_res = requests.get(f"{url}?ref={BRANCH}", headers=headers, timeout=10)
+        if check_res.status_code == 200:
+            sha = check_res.json().get("sha")
+    except Exception as e:
+        print(f"⚠️ Check SHA exception: {e}")
+
+    encoded_content = base64.b64encode(content.encode("utf-8")).decode("utf-8")
+
+    data = {
+        "message": f"Auto-publish firmware guide: {file_name}",
+        "content": encoded_content,
+        "branch": BRANCH
+    }
+    if sha:
+        data["sha"] = sha
+
+    try:
+        res = requests.put(url, headers=headers, json=data, timeout=20)
+        if res.status_code in [200, 201]:
+            return True
+        else:
+            print(f"❌ GitHub API Error: Status {res.status_code} -> {res.text}")
+            return False
+    except Exception as e:
+        print(f"❌ Request Exception during push: {e}")
+        return False
+
+def slugify(text):
+    text = re.sub(r'[^a-zA-Z0-9\s-]', '', text).strip().lower()
+    return re.sub(r'[\s+]+', '-', text)[:45]
+
+# ==============================================================================
+# ৬. ব্যাকগ্রাউন্ড আরএসএস সিঙ্ক ও লিমিট চেকার
+# ==============================================================================
+def rss_worker():
+    while True:
+        try:
+            print(f"[{datetime.now()}] Checking RSS feed: {RSS_FEED_URL}")
+            feed = feedparser.parse(RSS_FEED_URL)
+            
+            processed_links, history_sha = get_remote_json()
+
+            for entry in feed.entries:
+                link = entry.link
+                
+                # যদি লিঙ্কটি আগে থেকেই হিস্ট্রিতে থাকে তবে বাদ দেবে
+                if link in processed_links:
+                    continue
+
+                raw_title = entry.title
+                raw_desc = getattr(entry, "description", raw_title)
+
+                print(f"⚡ Processing new firmware: {raw_title}")
+                article_markdown = generate_seo_article(raw_title, raw_desc, link)
+
+                date_str = datetime.now().strftime("%Y-%m-%d")
+                slug = slugify(raw_title)
+                filename = f"{date_str}-{slug}.md"
+
+                # নতুন পোস্ট গিটহাবে পুশ
+                if push_to_github(filename, article_markdown):
+                    processed_links.add(link)
+                    history_sha = save_remote_json(processed_links, history_sha)
+                    print(f"✅ Successfully published & saved to history: {filename}")
+
+                    # প্রতি নতুন পোস্ট পুশ হওয়ার পর ৩০০ ফাইল লিমিট চেক এবং অতিরিক্তগুলো অটো-ডিলিট
+                    manage_post_limit()
+                else:
+                    print(f"⚠️ GitHub push failed for: {filename}")
+
+                time.sleep(5)
+
+        except Exception as e:
+            print(f"Error in sync cycle: {e}")
+
+        # ২০ মিনিট বিরতি
+        time.sleep(1200)
+
+@app.on_event("startup")
+def start_background_task():
+    thread = threading.Thread(target=rss_worker, daemon=True)
+    thread.start()
+
+@app.api_route("/", methods=["GET", "HEAD"])
+def health_check():
+    return {"status": "running", "service": "Pure Python RSS-to-GitHub Automation Bot"}
